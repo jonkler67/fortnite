@@ -10,8 +10,7 @@
 
 .title{
   text-align: center;
-  animation-name: rainbowGradient;
-  animation-duration: 1s;
+  animation: rainbowGradient 1s linear infinite;
 }  
 h1, p{
   color:white;
