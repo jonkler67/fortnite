@@ -16,4 +16,8 @@ h1, p{
   color:white;
   background-color: blue;
   margin: 0;
+  display: inline-block;
+}
+body{
+  text-align: center;
 }
