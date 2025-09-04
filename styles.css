@@ -1,6 +1,18 @@
+@keyframes rainbowGradient {
+  0% {background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)}
+  17% {background-image: linear-gradient(to right, violet, red, orange, yellow, green, blue, indigo)}
+  33% {background-image: linear-gradient(to right, indigo, violet, red, orange, yellow, green, blue)}
+  50% {background-image: linear-gradient(to right, blue, indigo, violet, red, orange, yellow, green)}
+  67% {background-image: linear-gradient(to right, green,blue, indigo, violet, red, orange, yellow)}
+  83% {background-image: linear-gradient(to right, yellow,green,blue, indigo, violet, red, orange)}
+  100% {background-image: linear-gradient(to right, orange, yellow,green,blue, indigo, violet, red)}
+}
+
 .title{
   text-align: center;
-}
+  animation-name: rainbowGradient;
+  animation-duration: 4s;
+}  
 h1, p{
   color:white;
   background-color: blue;
