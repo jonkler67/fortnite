@@ -59,6 +59,7 @@ div {
 .title-text {
   width: 100%;
   font-size: 4vw;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
 }
 
 .title-button {
