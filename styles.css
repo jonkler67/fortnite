@@ -1,23 +1,82 @@
-@keyframes rainbowGradient {
-  0% {background-image: linear-gradient(to right, red,orange,yellow,green,blue,indigo,violet)}
-  17% {background-image: linear-gradient(to right, violet, red, orange, yellow, green, blue, indigo)}
-  33% {background-image: linear-gradient(to right, indigo, violet, red, orange, yellow, green, blue)}
-  50% {background-image: linear-gradient(to right, blue, indigo, violet, red, orange, yellow, green)}
-  67% {background-image: linear-gradient(to right, green,blue, indigo, violet, red, orange, yellow)}
-  83% {background-image: linear-gradient(to right, yellow,green,blue, indigo, violet, red, orange)}
-  100% {background-image: linear-gradient(to right, orange, yellow,green,blue, indigo, violet, red)}
+@keyframes move-background {
+  0% {
+    background-position: 0% 0%;
+    /* Start position */
+  }
+
+  100% {
+    background-position: 200% 0%;
+    /* End position, moving the gradient across */
+  }
 }
 
-.title{
-  text-align: center;
-  animation: rainbowGradient 1s linear infinite;
-}  
-h1, p{
-  color:white;
-  background-color: blue;
-  margin: 0;
-  display: inline-block;
+.rainbow-box {
+  height: 10vh;
+  width: 100%;
+  background: linear-gradient(90deg,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet,
+      red
+      /* Repeat the first color for seamless looping */
+    );
+  background-size: 200% 100%;
+  /* Make the background wider to allow for animation */
+  animation: move-background 8s linear infinite;
+  /* Apply the animation */
 }
-body{
+
+div {
   text-align: center;
+}
+
+.title {
+  text-align: center;
+  color: white;
+  position: sticky;
+  display: table;
+}
+
+.title-element {
+  display: flex;
+  justify-content: center;
+  /* Centers horizontally */
+  align-items: center;
+}
+
+.title-cell {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.title-text {
+  width: 100%;
+  font-size: 4vw;
+}
+
+.title-button {
+  border-top: 4px solid black;
+  border-right: 0;
+  border-left: 0;
+  border-bottom: 4px solid black;
+}
+
+p {
+  color: white;
+}
+
+body {
+  background-image: url("https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png");
+  background-size: fit;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  background-position: center;
+  text-align: center;
+  background-size: 200% 100%;
+  animation: move-background 4s linear infinite;
 }
