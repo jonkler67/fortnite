@@ -38,6 +38,8 @@ div {
   text-align: center;
   color: white;
   position: sticky;
+  top: 0;
+  padding: 10;
   display: table;
 }
 
