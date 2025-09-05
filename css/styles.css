@@ -67,6 +67,7 @@ div {
   border-right: 0;
   border-left: 0;
   border-bottom: 4px solid black;
+  height: 5vh;
 }
 
 p,
@@ -83,3 +84,4 @@ body {
   background-size: 200% 100%;
   animation: move-background 4s linear infinite;
 }
+
