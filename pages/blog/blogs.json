@@ -1,4 +1,7 @@
 {
-  "blogs":["test.html"]
+  "blogs":[{
+    "name": "test.html",
+    "date": "9/5/2025",
+  }]
 }
   
