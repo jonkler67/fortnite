@@ -13,6 +13,7 @@ fetch('path/to/your/file.json')
     for(let i = 0; i < data["blogs"].length; i++){
       let blog = data["blogs"][i]
       blogList.innerHTML += newBlogElement(blog["name"], blog["date"])
+    }
   })
   .catch(error => {
     console.error('Error fetching or parsing JSON:', error);
