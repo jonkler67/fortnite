@@ -10,6 +10,12 @@
   }
 }
 
+@font-face {
+  font-family: ComicSans;
+  src: url(/fonts/Comic Sans MS.ttf);
+}
+
+
 .rainbow-box {
   height: 10vh;
   width: 100%;
@@ -59,7 +65,7 @@ div {
 .title-text {
   width: 100%;
   font-size: 4vw;
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  font-family: ComicSans;
 }
 
 .title-button {
@@ -84,4 +90,5 @@ body {
   background-size: 200% 100%;
   animation: move-background 4s linear infinite;
 }
+
 
