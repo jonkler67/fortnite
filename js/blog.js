@@ -13,7 +13,7 @@ fetch('path/to/your/file.json')
     for(let i = 0; i < data["blogs"].length; i++){
       let blog = data["blogs"][i]
       blogList.innerHTML += newBlogElement(blog["name"], blog["date"])
-    }
+    } //GITHUB WILL NOT UPDATE THIS FILE HOPEFULLY THIS COMMENT FORCES GITHUB TO DO IT
   })
   .catch(error => {
     console.error('Error fetching or parsing JSON:', error);
