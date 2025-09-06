@@ -22,5 +22,5 @@ fetch('/pages/blog/blogs.json')
 
 
 function newBlogElement(name, date){
-  return `<a href='https://jonkler67.gay/pages/blog/${name}.html>${name} Created On: ${date}</a>`
+  return `<a href='https://jonkler67.gay/pages/blog/${name}.html'>${name} Created On: ${date}</a>`
 }
