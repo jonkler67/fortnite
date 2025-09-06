@@ -1,7 +1,7 @@
 const blogList = document.getElementById("blog-list")
 
 
-fetch('/blog/blogs.json')
+fetch('/pages/blog/blogs.json')
   .then(response => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
