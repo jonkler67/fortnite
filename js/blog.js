@@ -12,6 +12,7 @@ fetch('path/to/your/file.json')
     console.log(data); // The parsed JavaScript object
     for(let i = 0; i < data["blogs"].length; i++){
       let blog = data["blogs"][i]
+      console.log(blog)
       blogList.innerHTML += newBlogElement(blog["name"], blog["date"])
     } //GITHUB WILL NOT UPDATE THIS FILE HOPEFULLY THIS COMMENT FORCES GITHUB TO DO IT
   })
