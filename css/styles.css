@@ -10,6 +10,16 @@
   }
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @font-face {
   font-family: ComicSans;
   src: url("/fonts/Comic Sans MS.ttf");
@@ -83,7 +93,7 @@ h2 {
 
 body {
   background-image: url("https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png");
-  background-size: fit;
+  background-size: contain;
   background-repeat: repeat;
   background-attachment: fixed;
   background-position: center;
@@ -91,5 +101,28 @@ body {
   animation: move-background 4s linear infinite;
 }
 
+.cellbox {
+  text-align: center;
+  width: 100%;
+  top: 0;
+  padding: 10;
+  display: table;
+}
 
+.cellbox-element {
+  display: flex;
+}
 
+.superjonkler {
+  background-image: url("https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png");
+  background-size: fit;
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 100%;
+  width: 5%;
+  animation: rotate 1s linear infinite;
+}
+
+.superjonkler-element {
+  height: 10vh;
+}
