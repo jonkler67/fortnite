@@ -8,16 +8,19 @@
     integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/styles.css">
   <meta property="og:title" content="THE JONKLER IS BACK" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://jonkler67.gay"/>
-    <meta property="og:image" content="https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png" />
-    <meta property="og:site_name" content="jonkler67.gay" />
-    <meta property="og:description" 
-  content="The Jonkler Is Back Baby"/>
-<meta property="og:determiner" content="the" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://jonkler67.gay" />
+  <meta property="og:image" content="https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png" />
+  <meta property="og:site_name" content="jonkler67.gay" />
+  <meta property="og:description" content="The Jonkler Is Back Baby" />
+  <meta property="og:determiner" content="the" />
 </head>
 
 <body>
+  <button id="trick-user-into-playing-audio"
+    style="width: 100%; height: 100%; display: block; position: absolute; z-index: 100; opacity: 0.95; background-color: black; color: white; border: none;">
+    <h1>PRESS ME (I reccomend muting your device first)</h1>
+  </button>
   <div class="rainbow-box title">
     <div class="title-element">
       <h1 class="title-text title-cell">Hello, fellow business associates!</h1>
@@ -29,21 +32,40 @@
     </div>
 
   </div>
-
+  <audio controls id="whysoserious" style="display: none;">
+    <source src="/audio/whysoserious.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
   <h2>NEWEST MANDARIN MELODY!!!</h2>
-  <iframe id="youtube_video" width="560" height="315" src="https://www.youtube.com/embed/FxzSwE-XpPc?si=wz394hj4z0l227Ad" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-</body>
-<script src="./js/navButton.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script type='text/javascript'>
-$(document).ready(function() {
-  var channelID = "UCDi4O5YlOnl4E2AFDZLPU_A";
-  $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fchannel_id%3D'+channelID, function(data) {
-  var link = data.items[0].link;
-  var id = link.substr(link.indexOf("=")+1);
-  $("#youtube_video").attr("src","https://youtube.com/embed/"+id + "?autoplay=1&controls=0&showinfo=0&rel=0");
-  });
-})
+  <div id="player"></div>
+  <!-- <iframe id="player" width="560" height="315" src="https://www.youtube.com/embed/FxzSwE-XpPc?si=wz394hj4z0l227Ad"
+    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</body> -->
+  <script src="./js/navButton.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <!-- <script type='text/javascript'>
+  $(document).ready(function () {
+    var channelID = "UCDi4O5YlOnl4E2AFDZLPU_A";
+    $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.youtube.com%2Ffeeds%2Fvideos.xml%3Fchannel_id%3D' + channelID, function (data) {
+      var link = data.items[0].link;
+      var id = link.substr(link.indexOf("=") + 1);
+      $("#youtube_video").attr("src", "https://youtube.com/embed/" + id + "?controls=0&showinfo=0&rel=0");
+    });
+  })
 
-</script>
+</script> -->
+  <script src="./js/autoplayVideo.js"></script>
+  <script>
+    const audio = document.getElementById("whysoserious"); // Create a new Audio object
+    const audioWall = document.getElementById("trick-user-into-playing-audio")
+    audioWall.addEventListener("click", () => {
+      audioWall.style.display = "none"
+      audio.play()
+    })
+    audio.addEventListener("ended", () => {
+      audio.currentTime = 0
+      audio.play()
+    })
+  </script>
+
 </html>
