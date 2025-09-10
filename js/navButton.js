@@ -7,13 +7,14 @@ for (let i = 0; i < navButtons.length; i++) {
         if (navButtons[i].id == "index") {
             location.href = "/"
         } else if(navButtons[i].id == "ai"){
-            window.location.href = "ai.jonkler67.gay"
+                window.location.assign('https://www.example.com/new-page.html');
         } else if (newLocation != "/pages/.html") {
             location.href = newLocation
         }
 
     })
 }
+
 
 
 
