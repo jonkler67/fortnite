@@ -123,7 +123,7 @@ body {
   animation: rotate 1s linear infinite;
 }
 .spongebob{
-  background-image: url("https://media.tenor.com/R7JF4cuIjogAAAAj/spongebob-spongebob-meme.gif")
+  background-image: url("https://media.tenor.com/R7JF4cuIjogAAAAj/spongebob-spongebob-meme.gif");
   background-size: fit;
   background-position: center;
   background-size: 100%;
@@ -133,4 +133,5 @@ body {
 .superjonkler-element {
   height: 10vh;
 }
+
 
