@@ -89,6 +89,7 @@ div {
 p,
 h2 {
   color: white;
+  font-size: 6vw;
 }
 
 body {
@@ -133,6 +134,7 @@ body {
 .superjonkler-element {
   height: 10vh;
 }
+
 
 
 
