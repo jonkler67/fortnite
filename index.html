@@ -62,6 +62,15 @@
   })
   audio.addEventListener("ended", () => {
     audio.currentTime = 0
+    let randNum = Math.floor(Math.random() * (2 - 0 + 1)) + 0
+    if( randNum == 1){
+      audio.src = "/audio/why2.mp3
+    }else if(randNum == 2){
+      audio.src = "/audio/why4.mp3
+    }else{
+      audio.src = "/audio/whysoserious.m3"
+    }
+    
     audio.play()
   })
 </script>
