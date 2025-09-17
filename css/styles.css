@@ -91,10 +91,6 @@ h2 {
   color: white;
   text-align: center;
 }
-h3 {
-  color: black;
-  text-align: center;
-}
 
 body {
   background-image: url("https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png");
@@ -138,6 +134,7 @@ body {
 .superjonkler-element {
   height: 10vh;
 }
+
 
 
 
