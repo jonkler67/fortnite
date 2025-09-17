@@ -88,6 +88,10 @@ div {
 
 p,
 h2 {
+  color: white;
+  text-align: center;
+}
+h3 {
   color: black;
   text-align: center;
 }
@@ -134,6 +138,7 @@ body {
 .superjonkler-element {
   height: 10vh;
 }
+
 
 
 
