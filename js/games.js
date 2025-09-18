@@ -21,10 +21,10 @@ function updateCurrency(amount) {
 }
 
 // Playtime/odds skew
-var playtime = 35; // minutes, to be overwritten by server as needed
+var playtime = 14; // minutes, to be overwritten by server as needed
 function getFavorableChance() {
     // If playtime > 30, only 30% chance of a favorable outcome (for player)
-    return playtime > 30 ? 0.3 : 0.5;
+    return playtime > 30 ? 0.8 : 0.5;
 }
 
 let isOver18 = null;
@@ -36,7 +36,9 @@ function setAgeAndContinue(over18) {
         document.getElementById('game-zone').style.display = '';
         getCurrency(); // reset on entry for demo
     } else {
-        document.getElementById('underage-message').style.display = '';
+        document.getElementById('game-zone').style.display = '';
+        getCurrency();
+        var playtime = 67
     }
 }
 
@@ -404,7 +406,7 @@ function minesCalcMultiplier() {
     // Or use: (safeTilesLeft / totalSafeTiles) powered by risk, but let's use:
     // payout = bet * (mult_base ** safeRevealed)
     // base: e.g., 1.2 + (minesCount * 0.08)
-    let base = 1.2 + (minesCount * 0.08);
+    let base = 1.067 + (minesCount * 0.12);
     return Math.round((base ** minesSafeRevealed) * 100) / 100;
 }
 function minesCalcPayout() {
