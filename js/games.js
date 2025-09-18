@@ -65,11 +65,19 @@ function showGame(game) {
                     <div>
                         <span>Bet: </span>
                         <input id="mines-bet" type="number" min="1" max="${clientCurrency}" value="10" style="width:70px;">
+                        <span style="margin-left:15px;">Mines: </span>
+                        <select id="mines-minecount">
+                            ${[...Array(10).keys()].map(i => `<option value="${i+1}">${i+1}</option>`).join('')}
+                        </select>
                         <button class="btn btn-success btn-sm" onclick="setupMines()">Start</button>
                     </div>
-                    <div id="mines-board" style="display: flex; gap: 8px; margin-top:10px;"></div>
-                    <button class="btn btn-secondary mt-2" onclick="setupMines()" style="display:none;" id="mines-restart">Restart</button>
+                    <div id="mines-board" style="display: grid; grid-template-columns: repeat(6, 36px); gap: 8px; margin-top:10px;"></div>
+                    <div style="margin-top:10px;">
+                        <button class="btn btn-warning" id="mines-cashout" style="display:none;" onclick="minesCashOut()">Cash Out</button>
+                        <button class="btn btn-secondary" onclick="setupMines()" style="display:none;" id="mines-restart">Restart</button>
+                    </div>
                     <p id="mines-message"></p>
+                    <p id="mines-multiplier"></p>
                 </div>
             `;
     } else if (game === 'blackjack') {
@@ -279,57 +287,145 @@ function dealHoldem() {
     document.getElementById('holdem-result').textContent = outcome;
 }
 
-// Mines (skew: favorable means mine is at a predictable safe location)
-let minesMineIndex = null, minesRevealed = [], minesBet = 0, minesActive = false;
+// ----- MINES GAME: 5x6 board, choose mine count, cash out --------
+
+let minesMineIndexes = [], minesRevealed = [], minesBet = 0, minesActive = false, minesRows = 5, minesCols = 6, minesSafeRevealed = 0, minesCount = 1, minesTotalSafe = 0;
 function setupMines() {
     let betInput = document.getElementById('mines-bet');
-    if (!betInput) return; // not started yet
+    let mineCountInput = document.getElementById('mines-minecount');
+    if (!betInput || !mineCountInput) return; // not started yet
+
     let bet = parseInt(betInput.value, 10);
+    let minec = parseInt(mineCountInput.value, 10);
     if (isNaN(bet) || bet < 1 || bet > clientCurrency) {
         document.getElementById('mines-message').textContent = "Invalid bet!";
         return;
     }
+    if (isNaN(minec) || minec < 1 || minec > (minesRows * minesCols - 1)) {
+        document.getElementById('mines-message').textContent = "Invalid mine count!";
+        return;
+    }
     updateCurrency(-bet);
-    minesBet = bet;
-    minesActive = true;
 
+    minesBet = bet;
+    minesCount = minec;
+    minesActive = true;
+    minesSafeRevealed = 0;
+    minesTotalSafe = minesRows * minesCols - minesCount;
+
+    // Create an array for board state
+    minesRevealed = Array(minesRows * minesCols).fill(false);
+
+    // Randomize mines, favor player if lucky
+    let favorable = Math.random() < getFavorableChance();
+    let mineIndexes = [];
+    let totalTiles = minesRows * minesCols;
+    if (favorable) {
+        // Place all mines at the end
+        for (let i = totalTiles - minesCount; i < totalTiles; ++i) mineIndexes.push(i);
+    } else {
+        // Randomly choose mine positions
+        let allIndexes = Array.from({length: totalTiles}, (_,i)=>i);
+        while (mineIndexes.length < minesCount) {
+            let idx = Math.floor(Math.random() * allIndexes.length);
+            mineIndexes.push(allIndexes[idx]);
+            allIndexes.splice(idx, 1);
+        }
+    }
+    minesMineIndexes = mineIndexes;
+
+    document.getElementById('mines-message').textContent = '';
+    document.getElementById('mines-multiplier').textContent = '';
+    document.getElementById('mines-restart').style.display = 'none';
+    document.getElementById('mines-cashout').style.display = 'none';
+
+    // Build the board
     const board = document.getElementById('mines-board');
     board.innerHTML = '';
-    let favorable = Math.random() < getFavorableChance();
-    if (favorable) {
-        minesMineIndex = 5; // Always put mine at last spot
-    } else {
-        minesMineIndex = Math.floor(Math.random() * 6);
-    }
-    minesRevealed = Array(6).fill(false);
-    document.getElementById('mines-message').textContent = '';
-    document.getElementById('mines-restart').style.display = 'none';
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < minesRows * minesCols; i++) {
         let btn = document.createElement('button');
         btn.className = 'btn btn-secondary';
         btn.textContent = '?';
+        btn.style.width = "36px"; btn.style.height = "36px"; btn.style.fontSize = "18px";
         btn.onclick = function () {
             if (!minesActive || minesRevealed[i]) return;
-            minesRevealed[i] = true;
-            if (i === minesMineIndex) {
-                btn.textContent = '💣';
-                btn.className = 'btn btn-danger';
-                document.getElementById('mines-message').textContent = 'Boom! You hit the mine. Lost your bet.';
-                minesActive = false;
-                document.getElementById('mines-restart').style.display = '';
-            } else {
-                btn.textContent = '✅';
-                btn.className = 'btn btn-success';
-                if (minesRevealed.filter(Boolean).length === 5) {
-                    document.getElementById('mines-message').textContent = 'You win! Dodged the mine and double your bet!';
-                    updateCurrency(minesBet * 2);
-                    minesActive = false;
-                    document.getElementById('mines-restart').style.display = '';
-                }
-            }
+            minesRevealTile(i, btn);
         };
         board.appendChild(btn);
     }
+}
+
+function minesRevealTile(i, btn) {
+    minesRevealed[i] = true;
+    if (minesMineIndexes.includes(i)) {
+        btn.textContent = '💣';
+        btn.className = 'btn btn-danger';
+        document.getElementById('mines-message').textContent = 'Boom! You hit a mine. Lost your bet.';
+        minesActive = false;
+        document.getElementById('mines-restart').style.display = '';
+        document.getElementById('mines-cashout').style.display = 'none';
+        minesRevealAllMines();
+    } else {
+        btn.textContent = '✅';
+        btn.className = 'btn btn-success';
+        minesSafeRevealed++;
+        document.getElementById('mines-cashout').style.display = '';
+        // If all safe tiles revealed, auto cashout (max win)
+        if (minesSafeRevealed === minesTotalSafe) {
+            minesActive = false;
+            let payout = minesCalcPayout();
+            document.getElementById('mines-message').textContent = `You cleared the board! Max payout: ${payout}`;
+            updateCurrency(payout);
+            document.getElementById('mines-restart').style.display = '';
+            document.getElementById('mines-cashout').style.display = 'none';
+            minesRevealAllMines();
+        } else {
+            document.getElementById('mines-message').textContent = 
+                `Safe! You can keep going or cash out.`;
+        }
+        minesUpdateMultiplier();
+    }
+}
+
+function minesRevealAllMines() {
+    const board = document.getElementById('mines-board');
+    for (let idx of minesMineIndexes) {
+        let btn = board.children[idx];
+        if (btn.textContent === '?') {
+            btn.textContent = "💣";
+            btn.className = 'btn btn-danger';
+        }
+    }
+}
+
+function minesCalcMultiplier() {
+    // Classic escalating multiplier: 
+    // Each safe click increases multiplier by: (tiles left - mines) / (tiles left)
+    // Or use: (safeTilesLeft / totalSafeTiles) powered by risk, but let's use:
+    // payout = bet * (mult_base ** safeRevealed)
+    // base: e.g., 1.2 + (minesCount * 0.08)
+    let base = 1.2 + (minesCount * 0.08);
+    return Math.round((base ** minesSafeRevealed) * 100) / 100;
+}
+function minesCalcPayout() {
+    return Math.floor(minesBet * minesCalcMultiplier());
+}
+function minesUpdateMultiplier() {
+    let multiplier = minesCalcMultiplier();
+    let payout = minesBet * multiplier;
+    document.getElementById('mines-multiplier').textContent = 
+        `Current Multiplier: x${multiplier} | Potential Cashout: ${Math.floor(payout)}`;
+}
+
+function minesCashOut() {
+    if (!minesActive || minesSafeRevealed === 0) return;
+    let payout = minesCalcPayout();
+    document.getElementById('mines-message').textContent = `You cashed out for ${payout}!`;
+    updateCurrency(payout);
+    minesActive = false;
+    document.getElementById('mines-restart').style.display = '';
+    document.getElementById('mines-cashout').style.display = 'none';
+    minesRevealAllMines();
 }
 
 // Blackjack (skew: favorable odds = dealer busts more often)
