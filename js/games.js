@@ -428,32 +428,60 @@ function spinSlots() {
         return;
     }
     updateCurrency(-bet);
+
     const icons = ['🍒', '🍋', '7️⃣', '🍉', '⭐', '🔔'];
-    let favorable = Math.random() < getFavorableChance();
-    let vals;
-    let payout = 0;
-    if (favorable) {
-        let i = Math.floor(Math.random() * icons.length);
-        vals = [icons[i], icons[i], icons[i]];
-        payout = bet * 20;
-    } else {
-        // Avoid jackpot
-        let i1 = Math.floor(Math.random() * icons.length);
-        let i2 = (i1 + 1 + Math.floor(Math.random() * (icons.length - 1))) % icons.length;
-        let i3 = (i1 + 2 + Math.floor(Math.random() * (icons.length - 2))) % icons.length;
-        vals = [icons[i1], icons[i2], icons[i3]];
-        if (vals[0] === vals[1] || vals[1] === vals[2] || vals[0] === vals[2]) payout = bet * 2;
-    }
-    document.getElementById('slots-result').textContent = vals.join(' ');
-    let msg = '';
-    if (vals[0] === vals[1] && vals[1] === vals[2]) {
-        msg = 'Jackpot! You win ' + payout + '!';
-        updateCurrency(payout);
-    }
-    else if (payout > 0) {
-        msg = 'Two of a kind! You win ' + payout + '!';
-        updateCurrency(payout);
-    }
-    else msg = 'Try again! Lost your bet.';
-    document.getElementById('slots-message').textContent = msg;
+    let slotsResultElem = document.getElementById('slots-result');
+    let slotsMsgElem = document.getElementById('slots-message');
+    let spinBtn = document.getElementById('slots-spin-btn');
+    if (spinBtn) spinBtn.disabled = true;
+
+    // Animation variables
+    let spinCount = 0;
+    let spinTotal = 20; // Number of animation frames
+    let spinInterval = 50; // ms between frames
+
+    // Animation: Show random icons
+    let anim = setInterval(() => {
+        let vals = [
+            icons[Math.floor(Math.random() * icons.length)],
+            icons[Math.floor(Math.random() * icons.length)],
+            icons[Math.floor(Math.random() * icons.length)]
+        ];
+        slotsResultElem.textContent = vals.join(' ');
+        slotsMsgElem.textContent = '';
+        spinCount++;
+        if (spinCount >= spinTotal) {
+            clearInterval(anim);
+            // Now show the actual result
+            let favorable = Math.random() < getFavorableChance();
+            let vals;
+            let payout = 0;
+            if (favorable) {
+                let i = Math.floor(Math.random() * icons.length);
+                vals = [icons[i], icons[i], icons[i]];
+                payout = bet * 20;
+            } else {
+                // Avoid jackpot
+                let i1 = Math.floor(Math.random() * icons.length);
+                let i2 = (i1 + 1 + Math.floor(Math.random() * (icons.length - 1))) % icons.length;
+                let i3 = (i1 + 2 + Math.floor(Math.random() * (icons.length - 2))) % icons.length;
+                vals = [icons[i1], icons[i2], icons[i3]];
+                if (vals[0] === vals[1] || vals[1] === vals[2] || vals[0] === vals[2]) payout = bet * 2;
+            }
+            slotsResultElem.textContent = vals.join(' ');
+            let msg = '';
+            if (vals[0] === vals[1] && vals[1] === vals[2]) {
+                msg = 'Jackpot! You win ' + payout + '!';
+                updateCurrency(payout);
+            }
+            else if (payout > 0) {
+                msg = 'Two of a kind! You win ' + payout + '!';
+                updateCurrency(payout);
+            }
+            else msg = 'Try again! Lost your bet.';
+            slotsMsgElem.textContent = msg;
+            // Re-enable spin button
+            if (spinBtn) spinBtn.disabled = false;
+        }
+    }, spinInterval);
 }
