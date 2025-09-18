@@ -123,7 +123,8 @@ body {
   width: 5%;
   animation: rotate 1s linear infinite;
 }
-.spongebob{
+
+.spongebob {
   background-image: url("https://media.tenor.com/R7JF4cuIjogAAAAj/spongebob-spongebob-meme.gif");
   background-size: fit;
   background-position: center;
@@ -135,12 +136,112 @@ body {
   height: 10vh;
 }
 
+.game-bg,
+.question-bg {
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+}
 
+.question-bg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  margin: 32px auto 0 auto;
+}
 
+.game-bg {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+}
 
+@media (max-width: 600px) {
 
+  .game-bg,
+  .question-bg {
+    padding: 10px;
+    max-width: 100%;
+  }
+}
 
+/* Roulette styles */
+.roulette-table {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px 0;
+}
 
+.roulette-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 36px);
+  gap: 3px;
+  margin-bottom: 8px;
+}
 
+.roulette-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  transition: box-shadow 0.08s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.roulette-btn.red {
+  background: #d11a2a;
+  color: #fff;
+}
 
+.roulette-btn.black {
+  background: #222;
+  color: #fff;
+}
+
+.roulette-btn.green {
+  background: #0e9c47;
+  color: #fff;
+}
+
+.roulette-btn.selected {
+  box-shadow: 0 0 0 2px #ffa500 inset;
+}
+
+.roulette-bet-summary {
+  min-height: 24px;
+  margin-bottom: 8px;
+}
+
+.roulette-groups {
+  margin-bottom: 6px;
+}
+
+.roulette-group-btn {
+  margin-right: 6px;
+  margin-bottom: 4px;
+  min-width: 56px;
+}
+
+.roulette-chip {
+  background: #ffa500;
+  color: #000;
+  font-size: 0.85em;
+  border-radius: 50%;
+  padding: 2px 6px;
+  margin-left: 2px;
+  vertical-align: middle;
+}
