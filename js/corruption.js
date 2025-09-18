@@ -35,7 +35,7 @@ function evilLoop() {
                 pointer-events: none;
             `
             evilLoop()
-        }, 500)
+        }, 1000)
     }
 }
 evilLoop()
