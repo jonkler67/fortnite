@@ -20,9 +20,9 @@ function evilLoop() {
         setTimeout(() => {
             let randNum = Math.floor(Math.random() * (2 - 0 + 1)) + 0
             if (randNum < 2) {
-                opacity += 0.07
+                opacity += 0.00075
             } else {
-                opacity -= 0.035
+                opacity -= 0.00025
             }
             console.log(opacity)
             document.getElementById("evil").style = `
