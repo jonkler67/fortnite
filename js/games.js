@@ -5,7 +5,7 @@ getCurrency()
 function getCurrency() {
     console.log("jonkgotten")
     clientCurrency = parseInt(localStorage.getItem("jonkbucks"))
-    if (clientCurrency == null || clientCurrency < 0 || clientCurrency == Infinity || isNan(clientCurrency)) {
+    if (clientCurrency == null || clientCurrency < 0 || clientCurrency == Infinity || isNaN(clientCurrency)) {
         console.log("jonkbad " + clientCurrency)
         clientCurrency = 100;
     }
