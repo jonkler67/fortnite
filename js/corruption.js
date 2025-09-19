@@ -45,5 +45,5 @@ function duplicate(){
     }, 10000)
     
 }
-duplicate()
+//duplicate()
 evilLoop()
