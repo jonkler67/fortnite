@@ -308,9 +308,7 @@ function setupMines() {
         return;
     }
     updateCurrency(-bet);
-
-    minesBet = bet;
-    minesCount = minec;
+    
     minesActive = true;
     minesSafeRevealed = 0;
     minesTotalSafe = minesRows * minesCols - minesCount;
@@ -322,17 +320,17 @@ function setupMines() {
     let favorable = Math.random() < getFavorableChance();
     let mineIndexes = [];
     let totalTiles = minesRows * minesCols;
-    if (favorable) {
-        // Place all mines at the end
-        for (let i = totalTiles - minesCount; i < totalTiles; ++i) mineIndexes.push(i);
-    } else {
-        // Randomly choose mine positions
+    // if (favorable) {
+    //     // Place all mines at the end
+    //     for (let i = totalTiles - minesCount; i < totalTiles; ++i) mineIndexes.push(i);
+    // } else {
+    //     // Randomly choose mine positions
         let allIndexes = Array.from({length: totalTiles}, (_,i)=>i);
         while (mineIndexes.length < minesCount) {
             let idx = Math.floor(Math.random() * allIndexes.length);
             mineIndexes.push(allIndexes[idx]);
             allIndexes.splice(idx, 1);
-        }
+        // }
     }
     minesMineIndexes = mineIndexes;
 
