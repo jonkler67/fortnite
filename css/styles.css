@@ -312,7 +312,7 @@ h1 {
   /* width: 100px;
   height: 100px; */
   display: flex;
-  flex-direction: column-reverse;
+  /* flex-direction: column-reverse; */
 }
 
 .particle {
@@ -332,7 +332,7 @@ h1 {
   }
 
   100% {
-    scale: 20;
+    scale: 10;
     left: var(--particle-pos-endX);
     top: var(--particle-pos-endY);
     opacity: 0;
