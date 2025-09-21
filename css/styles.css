@@ -260,3 +260,81 @@ h1 {
   margin-top: 1vh;
   margin-bottom: 0;
 }
+
+.jonclicker-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 80vh;
+}
+
+.jonclicker-button {
+  background: none;
+  border-radius: 100vh;
+  width: 25vw;
+  height: 25vw;
+  border: none;
+  outline: none;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.jonclicker-button-img {
+  background-image: url("https://static.wikia.nocookie.net/why-so-serious/images/3/35/Jonkler.png");
+  background-size: fit;
+  background-repeat: repeat;
+  background-position: center;
+  background-size: 100%;
+  width: 100%;
+  height: 100%;
+  animation: rotate 4s linear infinite;
+  border-radius: 100vh;
+}
+
+.jonclicker-button:active {
+  transform: translateY(4px);
+}
+
+.jonclicker-tab {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  vertical-align: middle;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#jonclicker-particle-area {
+  position: relative;
+  /* width: 100px;
+  height: 100px; */
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.particle {
+  pointer-events: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  animation: particle-animation 1s linear;
+}
+
+@keyframes particle-animation {
+  0% {
+    scale: 0;
+    left: var(--particle-posX);
+    top: var(--particle-posY);
+    opacity: 1;
+  }
+
+  100% {
+    scale: 20;
+    left: var(--particle-pos-endX);
+    top: var(--particle-pos-endY);
+    opacity: 0;
+  }
+}
