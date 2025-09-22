@@ -9,7 +9,7 @@ function getCurrency() {
         console.log("jonkbad " + clientCurrency)
         clientCurrency = 100;
     }
-    if (localStorage.getItem("Games Verion") != "v1.0.0") {
+    if (localStorage.getItem("Games Version") != "v1.0.0") {
         clientCurrency = 100;
         localStorage.setItem("Games Version", "v1.0.0")
     }
