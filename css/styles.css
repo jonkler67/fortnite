@@ -1,3 +1,7 @@
+* {
+  cursor: url("/files/cursor.png");
+}
+
 @keyframes move-background {
   0% {
     background-position: 0% 0%;
@@ -337,4 +341,5 @@ h1 {
     top: var(--particle-pos-endY);
     opacity: 0;
   }
+
 }
